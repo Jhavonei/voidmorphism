@@ -18,6 +18,9 @@ export { default as SpaceNav } from './components/SpaceNav.svelte';
 export { default as GlitchText } from './components/GlitchText.svelte';
 export { default as MorphContainer } from './components/MorphContainer.svelte';
 
+// Signature: the gravity comet cursor
+export { default as CometCursor } from './components/CometCursor.svelte';
+
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
@@ -39,3 +42,17 @@ export {
 	type SpaceConfig
 } from './core/config.js';
 export { onFrame, whenVisible } from './core/raf.js';
+
+// Core: the shared spacetime gravity field
+export {
+	registerBody,
+	getPointer,
+	trackPointer,
+	getMass,
+	setMass,
+	proximity,
+	damp,
+	tiltFor,
+	type BodyOptions,
+	type BodyHandle
+} from './core/spacetime.js';
