@@ -7,8 +7,8 @@
  * so they pulse together rather than independently — the "one substance" feel.
  *
  * Usage:
- *   <div class="vm-surface" use:resonance>…</div>
- *   <div class="vm-surface" use:resonance={{ radius: 320, color: '190 95% 60%' }}>…</div>
+ *   <div class="sm-surface" use:resonance>…</div>
+ *   <div class="sm-surface" use:resonance={{ radius: 320, color: '190 95% 60%' }}>…</div>
  */
 
 export interface ResonanceOptions {
@@ -63,7 +63,7 @@ export function resonance(node: HTMLElement, options: ResonanceOptions = {}) {
 		const g = current * intensity;
 		// Resonant bloom — shared field brightness driven by global pointer.
 		node.style.setProperty(
-			'--vm-resonance',
+			'--sm-resonance',
 			color
 				? `0 0 ${(20 + g * 60).toFixed(0)}px ${(-12 + g * 6).toFixed(0)}px hsla(${color}, ${(g * 0.6).toFixed(3)})`
 				: `0 0 ${(20 + g * 60).toFixed(0)}px ${(-12 + g * 6).toFixed(0)}px hsla(248, 92%, 68%, ${(g * 0.5).toFixed(3)})`
@@ -83,7 +83,7 @@ export function resonance(node: HTMLElement, options: ResonanceOptions = {}) {
 
 	ensureListening();
 	subscribers.add(onField);
-	node.style.setProperty('--vm-resonance', '0 0 0 0 transparent');
+	node.style.setProperty('--sm-resonance', '0 0 0 0 transparent');
 
 	return {
 		update(next: ResonanceOptions = {}) {

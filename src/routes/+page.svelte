@@ -1,11 +1,11 @@
 <script lang="ts">
-	import VoidSurface from '$lib/components/VoidSurface.svelte';
-	import VoidPanel from '$lib/components/VoidPanel.svelte';
-	import VoidCard from '$lib/components/VoidCard.svelte';
-	import VoidButton from '$lib/components/VoidButton.svelte';
-	import VoidInput from '$lib/components/VoidInput.svelte';
-	import VoidModal from '$lib/components/VoidModal.svelte';
-	import VoidNav from '$lib/components/VoidNav.svelte';
+	import SpaceSurface from '$lib/components/SpaceSurface.svelte';
+	import SpacePanel from '$lib/components/SpacePanel.svelte';
+	import SpaceCard from '$lib/components/SpaceCard.svelte';
+	import SpaceButton from '$lib/components/SpaceButton.svelte';
+	import SpaceInput from '$lib/components/SpaceInput.svelte';
+	import SpaceModal from '$lib/components/SpaceModal.svelte';
+	import SpaceNav from '$lib/components/SpaceNav.svelte';
 
 	let modalOpen = $state(false);
 	let email = $state('');
@@ -18,7 +18,7 @@
 
 	const principles = [
 		{
-			title: 'Refractive Void Distortion',
+			title: 'Refractive Space Distortion',
 			body: 'Reality beneath each surface is warped and pulled inward through gravitational lensing — not merely blurred behind frosted glass.'
 		},
 		{
@@ -45,26 +45,26 @@
 </script>
 
 <svelte:head>
-	<title>Voidmorphism — a cinematic material system for Svelte 5</title>
+	<title>Spacemorphism — a cinematic material system for Svelte 5</title>
 	<meta
 		name="description"
-		content="Voidmorphism: interfaces carved from refractive void matter. A space-inspired Svelte 5 material system with gravitational lensing, borderless surfaces, and resonance lighting."
+		content="Spacemorphism: interfaces carved from refractive void matter. A space-inspired Svelte 5 material system with gravitational lensing, borderless surfaces, and resonance lighting."
 	/>
 </svelte:head>
 
 <div class="page">
 	<!-- Floating nav -->
-	<VoidNav sticky>
+	<SpaceNav sticky>
 		<span class="brand">void<span class="brand-accent">morphism</span></span>
 		<span class="nav-spacer"></span>
 		<a class="nav-link" href="#principles">Principles</a>
 		<a class="nav-link" href="#material">Material</a>
 		<a class="nav-link" href="#start">Start</a>
-		<VoidButton size="sm" variant="ghost" onclick={toggleTheme}>
+		<SpaceButton size="sm" variant="ghost" onclick={toggleTheme}>
 			{theme === 'dark' ? 'Light' : 'Dark'} mode
-		</VoidButton>
-		<VoidButton size="sm" variant="primary" onclick={() => (modalOpen = true)}>Live Demo</VoidButton>
-	</VoidNav>
+		</SpaceButton>
+		<SpaceButton size="sm" variant="primary" onclick={() => (modalOpen = true)}>Live Demo</SpaceButton>
+	</SpaceNav>
 
 	<!-- Hero -->
 	<section class="hero">
@@ -75,12 +75,12 @@
 			from refractive void matter, suspended in an infinite black.
 		</p>
 		<div class="hero-actions">
-			<VoidButton variant="primary" size="lg" onclick={() => (modalOpen = true)}>
+			<SpaceButton variant="primary" size="lg" onclick={() => (modalOpen = true)}>
 				Open the void
-			</VoidButton>
-			<VoidButton variant="surface" size="lg">
+			</SpaceButton>
+			<SpaceButton variant="surface" size="lg">
 				<a href="#principles" style="color:inherit;text-decoration:none;">Explore principles</a>
-			</VoidButton>
+			</SpaceButton>
 		</div>
 		<p class="hint">Move your cursor across the surfaces below — they have mass.</p>
 	</section>
@@ -88,13 +88,13 @@
 	<!-- Principles grid -->
 	<section id="principles" class="principles">
 		<h2 class="section-title">Defining characteristics</h2>
-		<p class="section-desc">Six properties that separate Voidmorphism from glassmorphism and liquid glass.</p>
+		<p class="section-desc">Six properties that separate Spacemorphism from glassmorphism and liquid glass.</p>
 		<div class="grid">
 			{#each principles as p (p.title)}
-				<VoidCard depth={2} padding="1.75rem">
+				<SpaceCard depth={2} padding="1.75rem">
 					<h3 class="card-title">{p.title}</h3>
 					<p class="card-body">{p.body}</p>
-				</VoidCard>
+				</SpaceCard>
 			{/each}
 		</div>
 	</section>
@@ -107,56 +107,56 @@
 			light, depth, and refraction.
 		</p>
 
-		<VoidPanel depth={1} padding="2.5rem" resonant>
+		<SpacePanel depth={1} padding="2.5rem" resonant>
 			<div class="showcase">
 				<div class="showcase-col">
 					<h3 class="card-title">Depth fields</h3>
 					<p class="card-body">Each surface lives on its own dimensional plane.</p>
 					<div class="depth-stack">
-						<VoidSurface depth={1} padding="1rem" interactive>Depth 1</VoidSurface>
-						<VoidSurface depth={2} padding="1rem" interactive>Depth 2</VoidSurface>
-						<VoidSurface depth={3} padding="1rem" interactive bloom>Depth 3 · bloom</VoidSurface>
+						<SpaceSurface depth={1} padding="1rem" interactive>Depth 1</SpaceSurface>
+						<SpaceSurface depth={2} padding="1rem" interactive>Depth 2</SpaceSurface>
+						<SpaceSurface depth={3} padding="1rem" interactive bloom>Depth 3 · bloom</SpaceSurface>
 					</div>
 				</div>
 
 				<div class="showcase-col">
 					<h3 class="card-title">Controls</h3>
 					<p class="card-body">Borderless inputs and gravity-reactive buttons.</p>
-					<VoidInput label="Join the waitlist" placeholder="you@galaxy.dev" type="email" bind:value={email} />
+					<SpaceInput label="Join the waitlist" placeholder="you@galaxy.dev" type="email" bind:value={email} />
 					<div class="btn-row">
-						<VoidButton variant="primary">Subscribe</VoidButton>
-						<VoidButton variant="surface">Maybe later</VoidButton>
-						<VoidButton variant="ghost">Dismiss</VoidButton>
+						<SpaceButton variant="primary">Subscribe</SpaceButton>
+						<SpaceButton variant="surface">Maybe later</SpaceButton>
+						<SpaceButton variant="ghost">Dismiss</SpaceButton>
 					</div>
 				</div>
 			</div>
-		</VoidPanel>
+		</SpacePanel>
 	</section>
 
 	<!-- Getting started -->
 	<section id="start" class="start">
 		<h2 class="section-title">Get started</h2>
-		<VoidPanel depth={2} padding="2rem">
+		<SpacePanel depth={2} padding="2rem">
 			<pre class="code-block"><code>{`npm install svelte-voidmorphism`}</code></pre>
 			<pre class="code-block"><code>{`<` +
 					`script>
   import 'svelte-voidmorphism/styles';
-  import { VoidFilters, VoidField, VoidCard } from 'svelte-voidmorphism';
+  import { SpaceFilters, SpaceField, SpaceCard } from 'svelte-voidmorphism';
 <` +
 					`/script>
 
-<VoidFilters />
-<VoidField />
+<SpaceFilters />
+<SpaceField />
 
-<VoidCard interactive resonant>
+<SpaceCard interactive resonant>
   Carved from refractive void matter.
-</VoidCard>`}</code></pre>
-		</VoidPanel>
+</SpaceCard>`}</code></pre>
+		</SpacePanel>
 	</section>
 
 	<!-- Footer -->
 	<footer class="footer">
-		<p>MIT License · Built with Svelte 5 Runes · Voidmorphism</p>
+		<p>MIT License · Built with Svelte 5 Runes · Spacemorphism</p>
 		<p>
 			<a href="https://github.com/yourusername/svelte-voidmorphism">GitHub</a> ·
 			<a href="https://www.npmjs.com/package/svelte-voidmorphism">npm</a>
@@ -165,7 +165,7 @@
 </div>
 
 <!-- Live demo modal -->
-<VoidModal bind:open={modalOpen} width="min(92vw, 440px)">
+<SpaceModal bind:open={modalOpen} width="min(92vw, 440px)">
 	<h3 class="card-title" style="margin-top:0;">A dimensional anomaly</h3>
 	<p class="card-body">
 		This modal uses the deep refractive lens — the entire interface behind it is pulled inward,
@@ -173,9 +173,9 @@
 		close.
 	</p>
 	<div class="btn-row">
-		<VoidButton variant="primary" onclick={() => (modalOpen = false)}>Close the void</VoidButton>
+		<SpaceButton variant="primary" onclick={() => (modalOpen = false)}>Close the void</SpaceButton>
 	</div>
-</VoidModal>
+</SpaceModal>
 
 <style>
 	.page {
@@ -189,22 +189,22 @@
 		font-weight: 800;
 		letter-spacing: -0.02em;
 		font-size: 1.1rem;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 	}
 	.brand-accent {
-		color: var(--vm-accent-2);
+		color: var(--sm-accent-2);
 	}
 	.nav-spacer {
 		flex: 1;
 	}
 	.nav-link {
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 		text-decoration: none;
 		font-size: 0.92rem;
-		transition: color 0.2s var(--vm-ease);
+		transition: color 0.2s var(--sm-ease);
 	}
 	.nav-link:hover {
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 	}
 
 	/* Hero */
@@ -222,7 +222,7 @@
 		text-transform: uppercase;
 		letter-spacing: 0.32em;
 		font-size: 0.72rem;
-		color: var(--vm-ink-faint);
+		color: var(--sm-ink-faint);
 		margin-bottom: 1.25rem;
 	}
 
@@ -232,13 +232,13 @@
 		margin: 0;
 		letter-spacing: -0.04em;
 		line-height: 0.95;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 		text-shadow:
 			0 0 60px hsla(272, 92%, 67%, 0.4),
 			0 0 120px hsla(45, 96%, 60%, 0.12);
 	}
 	.accent {
-		background: linear-gradient(120deg, var(--vm-accent), var(--vm-accent-2));
+		background: linear-gradient(120deg, var(--sm-accent), var(--sm-accent-2));
 		-webkit-background-clip: text;
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
@@ -246,7 +246,7 @@
 
 	.tagline {
 		font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 		max-width: 44ch;
 		margin: 1.5rem 0 2.25rem;
 		line-height: 1.55;
@@ -262,7 +262,7 @@
 	.hint {
 		margin-top: 2rem;
 		font-size: 0.85rem;
-		color: var(--vm-ink-faint);
+		color: var(--sm-ink-faint);
 	}
 
 	/* Sections */
@@ -274,10 +274,10 @@
 		font-weight: 800;
 		letter-spacing: -0.03em;
 		margin: 0 0 0.5rem;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 	}
 	.section-desc {
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 		max-width: 56ch;
 		margin: 0 0 2.25rem;
 		line-height: 1.55;
@@ -293,11 +293,11 @@
 		margin: 0 0 0.6rem;
 		font-size: 1.15rem;
 		font-weight: 700;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 	}
 	.card-body {
 		margin: 0;
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
@@ -330,16 +330,16 @@
 	/* Code */
 	.code-block {
 		background: hsla(272, 55%, 6%, 0.5);
-		border-radius: var(--vm-radius-sm);
+		border-radius: var(--sm-radius-sm);
 		padding: 1.1rem 1.4rem;
 		overflow-x: auto;
 		margin: 0 0 1rem;
-		box-shadow: 0 1px 0 0 var(--vm-rim-soft) inset;
+		box-shadow: 0 1px 0 0 var(--sm-rim-soft) inset;
 	}
 	.code-block code {
 		font-family: 'Fira Code', ui-monospace, 'Courier New', monospace;
 		font-size: 0.86rem;
-		color: var(--vm-accent-2);
+		color: var(--sm-accent-2);
 		white-space: pre;
 	}
 
@@ -347,11 +347,11 @@
 	.footer {
 		text-align: center;
 		padding: 3rem 0 4rem;
-		color: var(--vm-ink-faint);
+		color: var(--sm-ink-faint);
 		font-size: 0.88rem;
 	}
 	.footer a {
-		color: var(--vm-accent-2);
+		color: var(--sm-accent-2);
 		text-decoration: none;
 	}
 	.footer a:hover {

@@ -1,18 +1,18 @@
 // Main library entry point
 export * from './transitions/index.js';
 
-// Voidmorphism material system — core
-export { default as VoidSurface } from './components/VoidSurface.svelte';
-export { default as VoidFilters } from './components/VoidFilters.svelte';
-export { default as VoidField } from './components/VoidField.svelte';
+// Spacemorphism material system — core
+export { default as SpaceSurface } from './components/SpaceSurface.svelte';
+export { default as SpaceFilters } from './components/SpaceFilters.svelte';
+export { default as SpaceField } from './components/SpaceField.svelte';
 
-// Voidmorphism material system — components
-export { default as VoidPanel } from './components/VoidPanel.svelte';
-export { default as VoidCard } from './components/VoidCard.svelte';
-export { default as VoidButton } from './components/VoidButton.svelte';
-export { default as VoidInput } from './components/VoidInput.svelte';
-export { default as VoidModal } from './components/VoidModal.svelte';
-export { default as VoidNav } from './components/VoidNav.svelte';
+// Spacemorphism material system — components
+export { default as SpacePanel } from './components/SpacePanel.svelte';
+export { default as SpaceCard } from './components/SpaceCard.svelte';
+export { default as SpaceButton } from './components/SpaceButton.svelte';
+export { default as SpaceInput } from './components/SpaceInput.svelte';
+export { default as SpaceModal } from './components/SpaceModal.svelte';
+export { default as SpaceNav } from './components/SpaceNav.svelte';
 
 // Animation components
 export { default as GlitchText } from './components/GlitchText.svelte';

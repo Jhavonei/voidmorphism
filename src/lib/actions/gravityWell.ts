@@ -2,14 +2,14 @@
  * gravityWell — a Svelte action that makes a surface feel massive.
  *
  * As the pointer approaches, the element:
- *   - attracts light toward the cursor (writes --vm-mx / --vm-my)
- *   - registers a gravitational "pull" (--vm-pull, 0 → 1)
- *   - tilts gently toward the cursor (--vm-tilt-x / --vm-tilt-y)
+ *   - attracts light toward the cursor (writes --sm-mx / --sm-my)
+ *   - registers a gravitational "pull" (--sm-pull, 0 → 1)
+ *   - tilts gently toward the cursor (--sm-tilt-x / --sm-tilt-y)
  *
- * These CSS variables are consumed by `.vm-surface` in voidmorphism.css.
+ * These CSS variables are consumed by `.sm-surface` in voidmorphism.css.
  *
  * Usage:
- *   <div class="vm-surface" use:gravityWell={{ tilt: 6, pull: 1 }}>…</div>
+ *   <div class="sm-surface" use:gravityWell={{ tilt: 6, pull: 1 }}>…</div>
  */
 
 export interface GravityWellOptions {
@@ -44,9 +44,9 @@ export function gravityWell(node: HTMLElement, options: GravityWellOptions = {})
 		curTiltX += (targetTiltX - curTiltX) * 0.12;
 		curTiltY += (targetTiltY - curTiltY) * 0.12;
 
-		node.style.setProperty('--vm-pull', curPull.toFixed(3));
-		node.style.setProperty('--vm-tilt-x', `${curTiltX.toFixed(2)}deg`);
-		node.style.setProperty('--vm-tilt-y', `${curTiltY.toFixed(2)}deg`);
+		node.style.setProperty('--sm-pull', curPull.toFixed(3));
+		node.style.setProperty('--sm-tilt-x', `${curTiltX.toFixed(2)}deg`);
+		node.style.setProperty('--sm-tilt-y', `${curTiltY.toFixed(2)}deg`);
 
 		const settled =
 			Math.abs(targetPull - curPull) < 0.001 &&
@@ -69,8 +69,8 @@ export function gravityWell(node: HTMLElement, options: GravityWellOptions = {})
 		// Pointer position relative to the element (for the light highlight).
 		const localX = ((e.clientX - r.left) / r.width) * 100;
 		const localY = ((e.clientY - r.top) / r.height) * 100;
-		node.style.setProperty('--vm-mx', `${localX.toFixed(1)}%`);
-		node.style.setProperty('--vm-my', `${localY.toFixed(1)}%`);
+		node.style.setProperty('--sm-mx', `${localX.toFixed(1)}%`);
+		node.style.setProperty('--sm-my', `${localY.toFixed(1)}%`);
 
 		// Distance from edge → normalized pull within the gravitational field.
 		const dx = Math.max(Math.abs(e.clientX - cx) - r.width / 2, 0);
@@ -93,8 +93,8 @@ export function gravityWell(node: HTMLElement, options: GravityWellOptions = {})
 		targetPull = 0;
 		targetTiltX = 0;
 		targetTiltY = 0;
-		node.style.setProperty('--vm-mx', '50%');
-		node.style.setProperty('--vm-my', '50%');
+		node.style.setProperty('--sm-mx', '50%');
+		node.style.setProperty('--sm-my', '50%');
 		schedule();
 	}
 

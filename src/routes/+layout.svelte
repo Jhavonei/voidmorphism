@@ -1,14 +1,14 @@
 <script lang="ts">
-	import '$lib/styles/voidmorphism.css';
-	import VoidFilters from '$lib/components/VoidFilters.svelte';
-	import VoidField from '$lib/components/VoidField.svelte';
+	import '$lib/styles/spacemorphism.css';
+	import SpaceFilters from '$lib/components/SpaceFilters.svelte';
+	import SpaceField from '$lib/components/SpaceField.svelte';
 
 	let { children } = $props();
 </script>
 
-<!-- Voidmorphism setup: filters + infinite void foundation, mounted once. -->
-<VoidFilters />
-<VoidField />
+<!-- Spacemorphism setup: filters + infinite void foundation, mounted once. -->
+<SpaceFilters />
+<SpaceField />
 
 {@render children?.()}
 
@@ -17,11 +17,11 @@
 	:global(body) {
 		margin: 0;
 		min-height: 100%;
-		background: var(--vm-void);
+		background: var(--sm-void);
 	}
 
 	:global(body) {
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 		font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		transition:

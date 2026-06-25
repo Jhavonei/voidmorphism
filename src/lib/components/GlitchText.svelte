@@ -74,10 +74,10 @@
 	}
 
 	.glitch-text.continuous {
-		animation: vm-glitch-shift 3s infinite steps(10);
+		animation: sm-glitch-shift 3s infinite steps(10);
 	}
 
-	@keyframes vm-glitch-shift {
+	@keyframes sm-glitch-shift {
 		0% { text-shadow: 2px 0 0 rgba(255, 0, 0, 0.8), -2px 0 0 rgba(0, 100, 255, 0.8); }
 		10% { text-shadow: -2px 0 0 rgba(255, 0, 0, 0.8), 2px 0 0 rgba(0, 100, 255, 0.8); }
 		20% { text-shadow: 2px 0 0 rgba(255, 0, 0, 0.8), -2px 0 0 rgba(0, 100, 255, 0.8); }

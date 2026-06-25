@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	/**
-	 * VoidField — the infinite black foundation.
+	 * SpaceField — the infinite black foundation.
 	 *
 	 * Renders interstellar depth behind your interface: OLED-black base, a slow
 	 * drifting nebula, a parallax starfield, and a faint gravitational vignette.
@@ -12,7 +12,7 @@
 	interface Props {
 		/** Number of stars. Default: 160. */
 		stars?: number;
-		/** Nebula hue (matches --vm-matter-h by default). Default: 270. */
+		/** Nebula hue (matches --sm-matter-h by default). Default: 270. */
 		hue?: number;
 		/** Parallax strength in px as the pointer moves. Default: 18. */
 		parallax?: number;
@@ -35,7 +35,7 @@
 		const themeObserver = new MutationObserver(() => {
 			light = root.dataset.vmTheme === 'light';
 		});
-		themeObserver.observe(root, { attributes: true, attributeFilter: ['data-vm-theme'] });
+		themeObserver.observe(root, { attributes: true, attributeFilter: ['data-sm-theme'] });
 
 		let w = 0;
 		let h = 0;
@@ -121,17 +121,17 @@
 
 <div
 	bind:this={wrap}
-	class="vm-field"
+	class="sm-field"
 	aria-hidden="true"
-	style="--vm-field-hue: {hue}; --vm-field-intensity: {intensity};"
+	style="--sm-field-hue: {hue}; --sm-field-intensity: {intensity};"
 >
-	<div class="vm-nebula"></div>
-	<canvas bind:this={canvas} class="vm-stars"></canvas>
-	<div class="vm-vignette"></div>
+	<div class="sm-nebula"></div>
+	<canvas bind:this={canvas} class="sm-stars"></canvas>
+	<div class="sm-vignette"></div>
 </div>
 
 <style>
-	.vm-field {
+	.sm-field {
 		position: fixed;
 		inset: 0;
 		z-index: -1;
@@ -139,30 +139,30 @@
 		background:
 			radial-gradient(
 				120% 120% at 50% -10%,
-				hsla(var(--vm-field-hue), 60%, 12%, 0.45) 0%,
+				hsla(var(--sm-field-hue), 60%, 12%, 0.45) 0%,
 				transparent 55%
 			),
-			var(--vm-void, #07040f);
+			var(--sm-void, #07040f);
 		pointer-events: none;
 		transition: background 0.6s ease;
 	}
 
 	/* Drifting nebula — deep, atmospheric, never gray. */
-	.vm-nebula {
+	.sm-nebula {
 		position: absolute;
 		inset: -20%;
-		opacity: calc(0.7 * var(--vm-field-intensity));
+		opacity: calc(0.7 * var(--sm-field-intensity));
 		background:
 			/* violet core */
 			radial-gradient(
 				40% 50% at 22% 30%,
-				hsla(var(--vm-field-hue), 85%, 24%, 0.5) 0%,
+				hsla(var(--sm-field-hue), 85%, 24%, 0.5) 0%,
 				transparent 60%
 			),
 			/* magenta drift */
 			radial-gradient(
 				45% 45% at 80% 25%,
-				hsla(calc(var(--vm-field-hue) + 30), 80%, 20%, 0.42) 0%,
+				hsla(calc(var(--sm-field-hue) + 30), 80%, 20%, 0.42) 0%,
 				transparent 60%
 			),
 			/* solar gold glow */
@@ -172,10 +172,10 @@
 				transparent 62%
 			);
 		filter: blur(40px);
-		animation: vm-nebula-drift 48s ease-in-out infinite alternate;
+		animation: sm-nebula-drift 48s ease-in-out infinite alternate;
 	}
 
-	@keyframes vm-nebula-drift {
+	@keyframes sm-nebula-drift {
 		0% {
 			transform: translate3d(-2%, -1%, 0) scale(1);
 		}
@@ -184,20 +184,20 @@
 		}
 	}
 
-	.vm-stars {
+	.sm-stars {
 		position: absolute;
 		inset: 0;
 	}
 
 	/* Gravitational vignette — light disappears into the edges of the void. */
-	.vm-vignette {
+	.sm-vignette {
 		position: absolute;
 		inset: 0;
-		background: radial-gradient(120% 120% at 50% 45%, transparent 55%, var(--vm-void, #07040f) 100%);
+		background: radial-gradient(120% 120% at 50% 45%, transparent 55%, var(--sm-void, #07040f) 100%);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.vm-nebula {
+		.sm-nebula {
 			animation: none;
 		}
 	}

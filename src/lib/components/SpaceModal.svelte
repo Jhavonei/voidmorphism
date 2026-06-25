@@ -1,10 +1,10 @@
 <script lang="ts">
-	import VoidSurface from './VoidSurface.svelte';
+	import SpaceSurface from './SpaceSurface.svelte';
 	import { voidDissolve } from '../transitions/voidDissolve.js';
 	import { fade } from 'svelte/transition';
 
 	/**
-	 * VoidModal — a foreground dimensional anomaly. It uses the deep refractive
+	 * SpaceModal — a foreground dimensional anomaly. It uses the deep refractive
 	 * lens to pull the entire interface behind it inward, with a gravitational
 	 * scrim darkening the surrounding void. Closes on Escape or scrim click.
 	 */
@@ -40,20 +40,20 @@
 <svelte:window onkeydown={onKey} />
 
 {#if open}
-	<div class="vm-modal-scrim" transition:fade={{ duration: 280 }}>
+	<div class="sm-modal-scrim" transition:fade={{ duration: 280 }}>
 		<button
-			class="vm-modal-scrim-hit"
+			class="sm-modal-scrim-hit"
 			aria-label="Close modal"
 			onclick={close}
 			tabindex="-1"
 		></button>
-		<div class="vm-modal-pos" transition:voidDissolve={{ duration: 520, voidColor: '170, 110, 255' }}>
-			<VoidSurface
+		<div class="sm-modal-pos" transition:voidDissolve={{ duration: 520, voidColor: '150, 195, 255' }}>
+			<SpaceSurface
 				depth={3}
 				deep
 				bloom
 				resonant
-				radius="var(--vm-radius-lg)"
+				radius="var(--sm-radius-lg)"
 				padding="2rem"
 				role="dialog"
 				aria-modal="true"
@@ -61,13 +61,13 @@
 				{...rest}
 			>
 				{@render children?.()}
-			</VoidSurface>
+			</SpaceSurface>
 		</div>
 	</div>
 {/if}
 
 <style>
-	.vm-modal-scrim {
+	.sm-modal-scrim {
 		position: fixed;
 		inset: 0;
 		z-index: 1000;
@@ -76,15 +76,15 @@
 		/* Gravitational scrim: the void deepens around the anomaly. */
 		background: radial-gradient(
 			120% 120% at 50% 50%,
-			hsla(275, 70%, 3%, 0.5) 0%,
-			hsla(275, 70%, 1%, 0.85) 100%
+			hsla(220, 50%, 3%, 0.5) 0%,
+			hsla(220, 60%, 1%, 0.88) 100%
 		);
 		-webkit-backdrop-filter: blur(4px) brightness(0.6);
 		backdrop-filter: blur(4px) brightness(0.6);
 		padding: 1.5rem;
 	}
 
-	.vm-modal-scrim-hit {
+	.sm-modal-scrim-hit {
 		position: absolute;
 		inset: 0;
 		border: none;
@@ -92,7 +92,7 @@
 		cursor: pointer;
 	}
 
-	.vm-modal-pos {
+	.sm-modal-pos {
 		position: relative;
 		z-index: 1;
 	}

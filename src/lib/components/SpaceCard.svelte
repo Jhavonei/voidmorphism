@@ -1,11 +1,11 @@
 <script lang="ts">
-	import VoidSurface from './VoidSurface.svelte';
+	import SpaceSurface from './SpaceSurface.svelte';
 	import { voidDissolve } from '../transitions/voidDissolve.js';
 	import { type EasingFunction, easeOutExpo } from '../transitions/easing.js';
 
 	/**
-	 * VoidCard — a Voidmorphism content card carved from refractive void matter.
-	 * Built on <VoidSurface />, it adds a void-dissolve enter/exit transition.
+	 * SpaceCard — a Spacemorphism content card carved from refractive void matter.
+	 * Built on <SpaceSurface />, it adds a void-dissolve enter/exit transition.
 	 */
 
 	interface Props {
@@ -25,12 +25,12 @@
 		bloom?: boolean;
 		/** Card padding. Default: '2rem'. */
 		padding?: string;
-		/** Border radius. Default: 'var(--vm-radius)'. */
+		/** Border radius. Default: 'var(--sm-radius)'. */
 		radius?: string;
 		/** Card width. Default: 'auto'. */
 		width?: string;
-		/** Void dissolve glow color (RGB string). Default: '170, 110, 255'. */
-		voidColor?: string;
+		/** Dissolve glow color (RGB string). Default: cold star-white '150, 195, 255'. */
+		glow?: string;
 		children?: import('svelte').Snippet;
 		[key: string]: any;
 	}
@@ -44,18 +44,18 @@
 		resonant = true,
 		bloom = false,
 		padding = '2rem',
-		radius = 'var(--vm-radius)',
+		radius = 'var(--sm-radius)',
 		width = 'auto',
-		voidColor = '170, 110, 255',
+		glow = '150, 195, 255',
 		children,
 		...restProps
 	}: Props = $props();
 </script>
 
 {#if visible}
-	<div transition:voidDissolve={{ duration, easing, voidColor }} style="width: {width};">
-		<VoidSurface {depth} {interactive} {resonant} {bloom} {padding} {radius} {...restProps}>
+	<div transition:voidDissolve={{ duration, easing, voidColor: glow }} style="width: {width};">
+		<SpaceSurface {depth} {interactive} {resonant} {bloom} {padding} {radius} {...restProps}>
 			{@render children?.()}
-		</VoidSurface>
+		</SpaceSurface>
 	</div>
 {/if}

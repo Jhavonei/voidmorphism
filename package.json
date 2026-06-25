@@ -1,16 +1,19 @@
 {
-  "name": "svelte-voidmorphism",
+  "name": "svelte-spacemorphism",
   "version": "0.1.0",
-  "description": "Voidmorphism — a cinematic, space-inspired Svelte 5 material system where interfaces appear carved from refractive void matter. Includes a full component suite plus morphing/glitch transitions, built with runes.",
+  "description": "Spacemorphism — a monochrome, gravity-driven, space sci-fi Svelte 5 material system and animated-component suite. The successor to glassmorphism and liquid glass: surfaces lens light, bend reality, and pull star dust toward the cursor. Built with runes, zero runtime dependencies.",
   "license": "MIT",
   "author": "",
   "keywords": [
     "svelte",
     "svelte5",
     "svelte-kit",
-    "voidmorphism",
+    "spacemorphism",
     "glassmorphism",
     "liquid-glass",
+    "space",
+    "gravity",
+    "webgl",
     "material",
     "design-system",
     "ui",
@@ -18,18 +21,18 @@
     "refraction",
     "animation",
     "transition",
-    "morph",
-    "glitch",
+    "particles",
+    "starfield",
     "runes",
     "svelte-library"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/svelte-voidmorphism.git"
+    "url": "git+https://github.com/yourusername/svelte-spacemorphism.git"
   },
-  "homepage": "https://github.com/yourusername/svelte-voidmorphism#readme",
+  "homepage": "https://github.com/yourusername/svelte-spacemorphism#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/svelte-voidmorphism/issues"
+    "url": "https://github.com/yourusername/svelte-spacemorphism/issues"
   },
   "scripts": {
     "dev": "vite dev",
@@ -75,8 +78,8 @@
       "types": "./dist/utils/index.d.ts",
       "svelte": "./dist/utils/index.js"
     },
-    "./styles": "./dist/styles/voidmorphism.css",
-    "./styles/voidmorphism.css": "./dist/styles/voidmorphism.css"
+    "./styles": "./dist/styles/spacemorphism.css",
+    "./styles/spacemorphism.css": "./dist/styles/spacemorphism.css"
   },
   "files": [
     "dist",

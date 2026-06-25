@@ -1,8 +1,8 @@
 <script lang="ts">
-	import VoidSurface from './VoidSurface.svelte';
+	import SpaceSurface from './SpaceSurface.svelte';
 
 	/**
-	 * VoidButton — a tactile control carved from void matter. It tilts toward the
+	 * SpaceButton — a tactile control carved from void matter. It tilts toward the
 	 * cursor (gravity well), attracts light, and — on the primary variant — emits
 	 * a soft celestial bloom. Borderless by design.
 	 */
@@ -36,26 +36,26 @@
 	const fontSize = $derived(size === 'sm' ? '0.85rem' : size === 'lg' ? '1.1rem' : '0.98rem');
 </script>
 
-<VoidSurface
+<SpaceSurface
 	as="button"
 	depth={1}
-	radius="var(--vm-radius-pill)"
+	radius="var(--sm-radius-pill)"
 	padding={pad}
 	interactive={!disabled}
 	tilt={4}
 	bloom={variant === 'primary'}
 	{resonant}
-	resonanceColor={variant === 'primary' ? '272 92% 67%' : ''}
-	class="vm-btn vm-btn-{variant}"
-	style={`font-size: ${fontSize}; --vm-btn-disabled: ${disabled ? 1 : 0};`}
+	resonanceColor={variant === 'primary' ? '212 90% 72%' : ''}
+	class="sm-btn sm-btn-{variant}"
+	style={`font-size: ${fontSize}; --sm-btn-disabled: ${disabled ? 1 : 0};`}
 	disabled={disabled || undefined}
 	{...rest}
 >
 	{@render children?.()}
-</VoidSurface>
+</SpaceSurface>
 
 <style>
-	:global(.vm-btn) {
+	:global(.sm-btn) {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -63,48 +63,49 @@
 		font-weight: 650;
 		line-height: 1;
 		border: none;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 		white-space: nowrap;
 		user-select: none;
 		-webkit-tap-highlight-color: transparent;
 	}
 
-	:global(.vm-btn[disabled]) {
+	:global(.sm-btn[disabled]) {
 		opacity: 0.4;
 		pointer-events: none;
 	}
 
-	/* Primary: the brightest manifestation of the substance — violet core, gold edge. */
-	:global(.vm-btn-primary) {
+	/* Primary: the brightest manifestation of the substance — silver glass,
+	   cold star-glow edge. Reads as polished spacecraft alloy under starlight. */
+	:global(.sm-btn-primary) {
 		background-image: linear-gradient(
 			135deg,
-			hsla(272, 92%, 70%, 0.95) 0%,
-			hsla(286, 88%, 58%, 0.9) 55%,
-			hsla(45, 96%, 60%, 0.9) 160%
+			hsla(210, 18%, 92%, 0.95) 0%,
+			hsla(212, 16%, 78%, 0.9) 52%,
+			var(--sm-accent) 165%
 		);
-		color: hsl(280 50% 98%);
-		text-shadow: 0 1px 12px hsla(272, 92%, 25%, 0.7);
+		color: hsl(220 40% 12%);
+		text-shadow: 0 1px 10px hsla(210, 40%, 100%, 0.55);
 	}
 
-	:global(.vm-btn-ghost) {
+	:global(.sm-btn-ghost) {
 		background-image: none;
 		background-color: transparent;
 		box-shadow: none;
 		-webkit-backdrop-filter: none;
 		backdrop-filter: none;
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 	}
 
-	:global(.vm-btn-ghost::before),
-	:global(.vm-btn-ghost::after) {
+	:global(.sm-btn-ghost::before),
+	:global(.sm-btn-ghost::after) {
 		opacity: 0;
 	}
 
-	:global(.vm-btn-ghost:hover) {
-		color: var(--vm-ink);
+	:global(.sm-btn-ghost:hover) {
+		color: var(--sm-ink);
 	}
 
-	:global(.vm-btn:active) {
+	:global(.sm-btn:active) {
 		transform: perspective(900px) translateZ(0) scale(0.97) !important;
 	}
 </style>

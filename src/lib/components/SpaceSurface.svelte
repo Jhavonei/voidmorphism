@@ -3,14 +3,14 @@
 	import { resonance } from '../actions/resonance.js';
 
 	/**
-	 * VoidSurface — the base material primitive of Voidmorphism.
+	 * SpaceSurface — the base material primitive of Spacemorphism.
 	 *
 	 * Everything (cards, panels, modals, buttons) is grown from this one
 	 * continuous cosmic substance. It provides: refractive void distortion,
 	 * borderless event-horizon edges, layered depth, gravity-well interaction,
 	 * and resonance lighting.
 	 *
-	 * Requires <VoidFilters /> mounted once at the app root and the stylesheet
+	 * Requires <SpaceFilters /> mounted once at the app root and the stylesheet
 	 * imported: `import 'svelte-voidmorphism/styles';`
 	 */
 
@@ -21,7 +21,7 @@
 		as?: string;
 		/** Dimensional plane (controls blur + refraction strength). Default: 2. */
 		depth?: Depth;
-		/** Border radius. Default: 'var(--vm-radius)'. */
+		/** Border radius. Default: 'var(--sm-radius)'. */
 		radius?: string;
 		/** Padding. Default: '1.5rem'. */
 		padding?: string;
@@ -52,7 +52,7 @@
 	let {
 		as = 'div',
 		depth = 2,
-		radius = 'var(--vm-radius)',
+		radius = 'var(--sm-radius)',
 		padding = '1.5rem',
 		refract = true,
 		deep = false,
@@ -68,22 +68,22 @@
 		...rest
 	}: Props = $props();
 
-	const filterId = $derived(deep ? 'vm-refract-deep' : depth === 1 ? 'vm-refract-soft' : 'vm-refract');
+	const filterId = $derived(deep ? 'sm-refract-deep' : depth === 1 ? 'sm-refract-soft' : 'sm-refract');
 
 	const composedStyle = $derived(
 		`border-radius: ${radius}; padding: ${padding};` +
-			(refract ? ` --vm-filter: url('#${filterId}');` : '') +
-			(bloom || resonant ? ' box-shadow: var(--vm-resonance, 0 0 0 0 transparent), 0 1px 0 0 var(--vm-rim) inset, 0 -24px 48px -28px var(--vm-horizon) inset, 0 30px 70px -32px var(--vm-cast);' : '') +
+			(refract ? ` --sm-filter: url('#${filterId}');` : '') +
+			(bloom || resonant ? ' box-shadow: var(--sm-resonance, 0 0 0 0 transparent), 0 1px 0 0 var(--sm-rim) inset, 0 -24px 48px -28px var(--sm-horizon) inset, 0 30px 70px -32px var(--sm-cast);' : '') +
 			(style ? ' ' + style : '')
 	);
 </script>
 
 <svelte:element
 	this={as}
-	class="vm-surface vm-depth-{depth} {bloom ? 'vm-bloom' : ''} {drift ? 'vm-drift' : ''} {className}"
+	class="sm-surface sm-depth-{depth} {bloom ? 'sm-bloom' : ''} {drift ? 'sm-drift' : ''} {className}"
 	style={composedStyle}
-	data-vm-refract={refract ? '' : undefined}
-	data-vm-interactive={interactive ? '' : undefined}
+	data-sm-refract={refract ? '' : undefined}
+	data-sm-interactive={interactive ? '' : undefined}
 	use:gravityWell={{ tilt, disabled: !interactive }}
 	use:resonance={{ disabled: !resonant, color: resonanceColor }}
 	{...rest}

@@ -1,0 +1,335 @@
+/* ============================================================================
+   SPACEMORPHISM — core material system
+   The successor to glassmorphism and liquid glass: a monochrome, gravity-driven
+   material where interfaces appear carved from deep space itself. Where glass
+   blurs the background and liquid glass distorts it, spacemorphism warps it like
+   a region of spacetime — borderless, event-horizon edges, one cold star-glow.
+
+   Import once at the root of your app:
+     import 'svelte-spacemorphism/styles';
+
+   Theme:  default = dark.  Add  data-sm-theme="light"  to <html> for the
+   inverted "observatory" theme.
+   Performance: data-sm-perf="cinematic" | "balanced" | "eco" on <html>.
+   ============================================================================ */
+
+:root,
+[data-sm-theme='dark'] {
+	color-scheme: dark;
+
+	/* --- Foundation: deepest interstellar black --------------------------- */
+	--sm-void: #050609;
+	--sm-void-deep: #000000;
+	--sm-abyss: #0b0c11;
+	--sm-charcoal: #15171c;
+	--sm-graphite: #22252d;
+
+	/* --- Monochrome ramp: charcoal → silver → white ----------------------- */
+	--sm-gray: #595d68;
+	--sm-gray-light: #9598a4;
+	--sm-silver: #c4c8d2;
+	--sm-white: #f3f5fa;
+
+	/* --- The ONE cold accent (star-glow). Set chroma to 0 = pure grayscale. */
+	--sm-accent-h: 212;
+	--sm-accent-s: 90%;
+	--sm-accent-l: 72%;
+	--sm-accent-chroma: 1; /* 0 → pure grayscale, 1 → full cold accent */
+	--sm-accent: hsl(
+		var(--sm-accent-h) calc(var(--sm-accent-s) * var(--sm-accent-chroma)) var(--sm-accent-l)
+	);
+	--sm-accent-2: hsl(204 28% 82%); /* cool silver secondary */
+	--sm-accent-soft: hsla(var(--sm-accent-h), calc(var(--sm-accent-s) * var(--sm-accent-chroma)), var(--sm-accent-l), 0.16);
+
+	/* Refractive rim-light hue (neutral/cold; the rim renders white). */
+	--sm-glint-h: 210;
+
+	/* --- Text: cinematic contrast ----------------------------------------- */
+	--sm-ink: hsl(220 28% 96%);
+	--sm-ink-dim: hsl(220 12% 72%);
+	--sm-ink-faint: hsl(220 10% 50%);
+
+	/* --- Surface tints: neutral charcoal-glass (see-into, never tinted) ---- */
+	--sm-surface-0: hsla(220, 10%, 12%, 0.30);
+	--sm-surface-1: hsla(220, 10%, 15%, 0.42);
+	--sm-surface-2: hsla(220, 12%, 18%, 0.55);
+	--sm-surface-3: hsla(220, 12%, 22%, 0.66);
+
+	/* --- Edge definition through light, not borders ----------------------- */
+	--sm-rim: hsla(0, 0%, 100%, 0.34);
+	--sm-rim-soft: hsla(0, 0%, 100%, 0.10);
+	--sm-horizon: hsla(220, 40%, 1%, 0.92);
+
+	/* --- Cast shadow (ambient drop into the void) ------------------------- */
+	--sm-cast: hsla(220, 50%, 2%, 0.92);
+	--sm-cast-2: hsla(220, 50%, 1%, 0.7);
+
+	/* --- Bloom (cold star-glow core, silver halo) ------------------------- */
+	--sm-bloom: hsla(var(--sm-accent-h), calc(var(--sm-accent-s) * var(--sm-accent-chroma)), var(--sm-accent-l), 0.40);
+	--sm-bloom-2: hsla(210, 20%, 82%, 0.18);
+
+	/* --- Refraction tuning (consumed by SVG filters) ---------------------- */
+	--sm-refract-scale: 18;
+	--sm-blur: 11px;
+	--sm-saturate: 1.15; /* neutral; keeps the material from tinting */
+
+	/* --- Geometry & motion ------------------------------------------------ */
+	--sm-radius-sm: 14px;
+	--sm-radius: 22px;
+	--sm-radius-lg: 30px;
+	--sm-radius-pill: 999px;
+
+	--sm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--sm-ease-warp: cubic-bezier(0.16, 1, 0.3, 1);
+	--sm-dur: 520ms;
+	--sm-dur-fast: 260ms;
+
+	/* --- Quality-of-life: density + live gravity values ------------------- */
+	--sm-density: 1; /* config: scales spacing/particle density downstream */
+	--sm-mx: 50%; /* pointer x within element (gravityWell / spacetime) */
+	--sm-my: 50%; /* pointer y within element */
+	--sm-pull: 0; /* 0 = at rest, 1 = full gravitational pull */
+	--sm-tilt-x: 0deg;
+	--sm-tilt-y: 0deg;
+	--sm-resonance: 0 0 0 0 transparent; /* written by the resonance action */
+}
+
+/* ---------------------------------------------------------------------------
+   INVERTED LIGHT THEME — "the observatory".
+   Luminous silver glass over a pale cosmic dawn. Same cold accent.
+   --------------------------------------------------------------------------- */
+[data-sm-theme='light'] {
+	color-scheme: light;
+
+	--sm-void: #e9ecf3;
+	--sm-void-deep: #ffffff;
+	--sm-abyss: #dfe3ec;
+	--sm-charcoal: #cfd4df;
+	--sm-graphite: #bdc3d0;
+
+	--sm-accent-l: 52%;
+	--sm-accent-2: hsl(210 30% 45%);
+
+	--sm-ink: hsl(220 35% 12%);
+	--sm-ink-dim: hsl(220 16% 34%);
+	--sm-ink-faint: hsl(220 12% 52%);
+
+	--sm-surface-0: hsla(220, 40%, 100%, 0.34);
+	--sm-surface-1: hsla(220, 45%, 100%, 0.48);
+	--sm-surface-2: hsla(220, 50%, 100%, 0.60);
+	--sm-surface-3: hsla(220, 55%, 100%, 0.72);
+
+	--sm-rim: hsla(0, 0%, 100%, 0.85);
+	--sm-rim-soft: hsla(0, 0%, 100%, 0.45);
+	--sm-horizon: hsla(220, 30%, 45%, 0.16);
+
+	--sm-cast: hsla(220, 30%, 40%, 0.18);
+	--sm-cast-2: hsla(220, 30%, 35%, 0.12);
+
+	--sm-bloom: hsla(var(--sm-accent-h), calc(var(--sm-accent-s) * var(--sm-accent-chroma)), 56%, 0.30);
+	--sm-bloom-2: hsla(210, 30%, 60%, 0.20);
+
+	--sm-blur: 13px;
+	--sm-saturate: 1.25;
+}
+
+/* ---------------------------------------------------------------------------
+   PERFORMANCE TIERS — scale cost without changing layout.
+   --------------------------------------------------------------------------- */
+[data-sm-perf='balanced'] {
+	--sm-blur: 8px;
+	--sm-saturate: 1.1;
+	--sm-refract-scale: 12;
+}
+[data-sm-perf='eco'] {
+	--sm-blur: 4px;
+	--sm-saturate: 1;
+	--sm-refract-scale: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Base: the space foundation. Apply to <body> or a root container.
+   --------------------------------------------------------------------------- */
+.sm-root {
+	background-color: var(--sm-void);
+	color: var(--sm-ink);
+	font-family:
+		'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------------------
+   The base material primitive (also exposed via <SpaceSurface />).
+   Borderless: edges defined by light behavior + event-horizon darkening.
+   See-into: deep blacks stay black, brights stay crisp — no gray fog.
+   --------------------------------------------------------------------------- */
+.sm-surface {
+	position: relative;
+	isolation: isolate;
+	border-radius: var(--sm-radius);
+	color: var(--sm-ink);
+
+	background-image: linear-gradient(
+		180deg,
+		var(--sm-surface-2) 0%,
+		var(--sm-surface-1) 46%,
+		var(--sm-surface-0) 100%
+	);
+
+	-webkit-backdrop-filter: blur(var(--sm-blur)) saturate(var(--sm-saturate));
+	backdrop-filter: blur(var(--sm-blur)) saturate(var(--sm-saturate));
+
+	box-shadow:
+		0 1px 0 0 var(--sm-rim) inset,
+		0 -24px 48px -28px var(--sm-horizon) inset,
+		0 30px 70px -32px var(--sm-cast),
+		0 2px 18px -8px var(--sm-cast-2);
+
+	transition:
+		transform var(--sm-dur) var(--sm-ease-warp),
+		box-shadow var(--sm-dur) var(--sm-ease);
+	transform-style: preserve-3d;
+}
+
+/* Refraction layer — applies the SVG lensing filter to the backdrop where
+   supported (Chromium). Degrades gracefully to the blur above. */
+@supports (backdrop-filter: url(#sm-ripple)) or (-webkit-backdrop-filter: url(#sm-ripple)) {
+	.sm-surface[data-sm-refract] {
+		-webkit-backdrop-filter: blur(var(--sm-blur)) saturate(var(--sm-saturate))
+			var(--sm-filter, url('#sm-ripple'));
+		backdrop-filter: blur(var(--sm-blur)) saturate(var(--sm-saturate))
+			var(--sm-filter, url('#sm-ripple'));
+	}
+}
+
+/* Event-horizon edge: content bends + darkens at the rim like a small
+   black hole. A non-border ring of light + shadow. */
+.sm-surface::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 1px;
+	background: linear-gradient(
+		180deg,
+		var(--sm-rim) 0%,
+		var(--sm-rim-soft) 18%,
+		transparent 52%,
+		var(--sm-horizon) 100%
+	);
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* Cursor-attracted starlight (gravity well). A soft white highlight that
+   follows the pointer. Never shiny — cold and faint. */
+.sm-surface::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		140% 120% at var(--sm-mx) var(--sm-my),
+		hsla(var(--sm-glint-h), 30%, 96%, calc(0.08 + 0.14 * var(--sm-pull))) 0%,
+		transparent 46%
+	);
+	opacity: 0.9;
+	pointer-events: none;
+	transition: background var(--sm-dur-fast) linear;
+	z-index: 1;
+}
+
+/* Interactive surfaces feel massive — they tilt + lift toward the cursor. */
+.sm-surface[data-sm-interactive] {
+	cursor: pointer;
+	transform: perspective(900px) rotateX(var(--sm-tilt-x)) rotateY(var(--sm-tilt-y))
+		translateZ(calc(var(--sm-pull) * 6px));
+}
+
+.sm-surface[data-sm-interactive]:hover {
+	box-shadow:
+		0 1px 0 0 var(--sm-rim) inset,
+		0 -24px 48px -26px var(--sm-horizon) inset,
+		0 40px 90px -30px var(--sm-cast),
+		0 0 60px -10px var(--sm-bloom);
+}
+
+/* --- Depth scale: every element lives on its own dimensional plane ------- */
+.sm-depth-1 {
+	--sm-blur: 7px;
+	--sm-refract-scale: 10;
+}
+.sm-depth-2 {
+	--sm-blur: 11px;
+	--sm-refract-scale: 16;
+}
+.sm-depth-3 {
+	--sm-blur: 16px;
+	--sm-refract-scale: 24;
+}
+.sm-depth-4 {
+	--sm-blur: 22px;
+	--sm-refract-scale: 32;
+}
+
+/* --- Star bloom: bright objects spill soft cold energy ------------------- */
+.sm-bloom {
+	box-shadow:
+		0 0 0 0 transparent,
+		0 0 40px -6px var(--sm-bloom),
+		0 0 90px -10px var(--sm-bloom-2);
+}
+
+/* --- Text helpers -------------------------------------------------------- */
+.sm-title {
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	color: var(--sm-ink);
+	text-shadow: 0 0 28px hsla(var(--sm-glint-h), 40%, 80%, 0.22);
+}
+.sm-dim {
+	color: var(--sm-ink-dim);
+}
+
+/* --- Continuous, weightless drift for living material -------------------- */
+@keyframes sm-drift {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+.sm-drift {
+	animation: sm-drift 9s var(--sm-ease) infinite;
+}
+
+@keyframes sm-resonate {
+	0%,
+	100% {
+		box-shadow: 0 0 40px -10px var(--sm-bloom);
+	}
+	50% {
+		box-shadow: 0 0 70px -8px var(--sm-bloom);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sm-surface,
+	.sm-drift,
+	.sm-surface[data-sm-interactive] {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
+	}
+}

@@ -1,9 +1,9 @@
 <script lang="ts">
 	/**
-	 * VoidFilters — injects the SVG filter definitions that power Voidmorphism's
+	 * SpaceFilters — injects the SVG filter definitions that power Spacemorphism's
 	 * gravitational lensing / refraction. Mount this ONCE near the root of your app
 	 * (e.g. in your root layout). Surfaces reference these filters by id via
-	 * `backdrop-filter: url(#vm-refract)`.
+	 * `backdrop-filter: url(#sm-refract)`.
 	 *
 	 * The displacement maps warp the content *behind* a surface — the hallmark
 	 * "see-into the void" distortion rather than a flat blur.
@@ -21,11 +21,11 @@
 	let { scale = 14, frequency = 0.008, octaves = 2 }: Props = $props();
 </script>
 
-<svg class="vm-filters" aria-hidden="true" focusable="false">
+<svg class="sm-filters" aria-hidden="true" focusable="false">
 	<defs>
 		<!-- Standard refractive void lensing. Broad, slow turbulence reads as
 		     gravitational bending rather than frosted noise. -->
-		<filter id="vm-refract" x="-20%" y="-20%" width="140%" height="140%">
+		<filter id="sm-refract" x="-20%" y="-20%" width="140%" height="140%">
 			<feTurbulence
 				type="fractalNoise"
 				baseFrequency={frequency}
@@ -45,7 +45,7 @@
 		</filter>
 
 		<!-- Deep lens: stronger pull for modals / foreground anomalies. -->
-		<filter id="vm-refract-deep" x="-30%" y="-30%" width="160%" height="160%">
+		<filter id="sm-refract-deep" x="-30%" y="-30%" width="160%" height="160%">
 			<feTurbulence
 				type="fractalNoise"
 				baseFrequency={frequency * 0.7}
@@ -65,7 +65,7 @@
 		</filter>
 
 		<!-- Subtle lens: depth-1 surfaces, inputs, small chips. -->
-		<filter id="vm-refract-soft" x="-15%" y="-15%" width="130%" height="130%">
+		<filter id="sm-refract-soft" x="-15%" y="-15%" width="130%" height="130%">
 			<feTurbulence
 				type="fractalNoise"
 				baseFrequency={frequency * 1.4}
@@ -83,8 +83,8 @@
 			/>
 		</filter>
 
-		<!-- Void bloom: soft celestial diffusion for bright accents. -->
-		<filter id="vm-bloom" x="-50%" y="-50%" width="200%" height="200%">
+		<!-- Space bloom: soft celestial diffusion for bright accents. -->
+		<filter id="sm-bloom" x="-50%" y="-50%" width="200%" height="200%">
 			<feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b" />
 			<feColorMatrix
 				in="b"
@@ -101,7 +101,7 @@
 </svg>
 
 <style>
-	.vm-filters {
+	.sm-filters {
 		position: absolute;
 		width: 0;
 		height: 0;

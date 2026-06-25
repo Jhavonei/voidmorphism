@@ -1,6 +1,6 @@
 <script lang="ts">
 	/**
-	 * VoidInput — a text field carved from void matter. The control itself is a
+	 * SpaceInput — a text field carved from void matter. The control itself is a
 	 * shallow void surface (soft refraction, event-horizon rim). Focus raises a
 	 * resonant bloom rather than a hard outline — borderless by design.
 	 */
@@ -29,13 +29,13 @@
 	}: Props = $props();
 </script>
 
-<label class="vm-input-wrap" class:disabled>
+<label class="sm-input-wrap" class:disabled>
 	{#if label}
-		<span class="vm-input-label">{label}</span>
+		<span class="sm-input-label">{label}</span>
 	{/if}
-	<span class="vm-input-field vm-surface vm-depth-1" data-vm-refract>
+	<span class="sm-input-field sm-surface sm-depth-1" data-sm-refract>
 		<input
-			class="vm-input"
+			class="sm-input"
 			{type}
 			{placeholder}
 			{disabled}
@@ -46,38 +46,38 @@
 </label>
 
 <style>
-	.vm-input-wrap {
+	.sm-input-wrap {
 		display: flex;
 		flex-direction: column;
 		gap: 0.45rem;
 		width: 100%;
 	}
 
-	.vm-input-label {
+	.sm-input-label {
 		font-size: 0.8rem;
 		font-weight: 600;
 		letter-spacing: 0.01em;
-		color: var(--vm-ink-dim);
+		color: var(--sm-ink-dim);
 		padding-left: 0.25rem;
 	}
 
-	.vm-input-field {
+	.sm-input-field {
 		display: block;
-		border-radius: var(--vm-radius-sm);
+		border-radius: var(--sm-radius-sm);
 		padding: 0;
 		transition:
-			box-shadow var(--vm-dur-fast) var(--vm-ease),
-			transform var(--vm-dur-fast) var(--vm-ease);
+			box-shadow var(--sm-dur-fast) var(--sm-ease),
+			transform var(--sm-dur-fast) var(--sm-ease);
 	}
 
-	.vm-input {
+	.sm-input {
 		width: 100%;
 		box-sizing: border-box;
 		padding: 0.85rem 1.1rem;
 		background: transparent;
 		border: none;
 		outline: none;
-		color: var(--vm-ink);
+		color: var(--sm-ink);
 		font: inherit;
 		font-size: 0.98rem;
 		border-radius: inherit;
@@ -85,17 +85,17 @@
 		z-index: 3;
 	}
 
-	.vm-input::placeholder {
-		color: var(--vm-ink-faint);
+	.sm-input::placeholder {
+		color: var(--sm-ink-faint);
 	}
 
 	/* Focus → resonant bloom, no hard border. */
-	.vm-input-field:focus-within {
+	.sm-input-field:focus-within {
 		box-shadow:
-			0 1px 0 0 var(--vm-rim) inset,
-			0 -24px 48px -28px var(--vm-horizon) inset,
-			0 0 0 1px hsla(var(--vm-glint-h), 90%, 70%, 0.25),
-			0 0 36px -6px var(--vm-bloom);
+			0 1px 0 0 var(--sm-rim) inset,
+			0 -24px 48px -28px var(--sm-horizon) inset,
+			0 0 0 1px hsla(var(--sm-glint-h), 90%, 70%, 0.25),
+			0 0 36px -6px var(--sm-bloom);
 	}
 
 	.disabled {
