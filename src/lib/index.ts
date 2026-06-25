@@ -21,3 +21,21 @@ export { default as MorphContainer } from './components/MorphContainer.svelte';
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
+
+// Core: quality-of-life systems (perf tiers, global config, shared rAF)
+export {
+	isBrowser,
+	prefersReducedMotion,
+	detectPerfTier,
+	perfTierFromSignals,
+	type PerfTier,
+	type PerfSignals
+} from './core/env.js';
+export {
+	getSpaceConfig,
+	setSpaceConfig,
+	autoConfig,
+	onSpaceConfig,
+	type SpaceConfig
+} from './core/config.js';
+export { onFrame, whenVisible } from './core/raf.js';

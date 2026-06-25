@@ -15,6 +15,7 @@
 	 */
 
 	type Depth = 1 | 2 | 3 | 4;
+	type Distortion = 'ripple' | 'warp' | 'dissipate' | 'caustic';
 
 	interface Props {
 		/** Element tag to render. Default: 'div'. */
@@ -27,6 +28,11 @@
 		padding?: string;
 		/** Apply SVG gravitational-lensing refraction to the backdrop. Default: true. */
 		refract?: boolean;
+		/**
+		 * Which refraction profile warps the backdrop. Each morphs reality
+		 * differently. Default: 'ripple' (or 'warp' when `deep`).
+		 */
+		distortion?: Distortion;
 		/** Use the deep lens (stronger pull) — for modals/foreground. Default: false. */
 		deep?: boolean;
 		/** React to the cursor: tilt + light attraction (gravity well). Default: false. */
@@ -55,6 +61,7 @@
 		radius = 'var(--sm-radius)',
 		padding = '1.5rem',
 		refract = true,
+		distortion = undefined,
 		deep = false,
 		interactive = false,
 		tilt = 6,
@@ -68,7 +75,10 @@
 		...rest
 	}: Props = $props();
 
-	const filterId = $derived(deep ? 'sm-refract-deep' : depth === 1 ? 'sm-refract-soft' : 'sm-refract');
+	const profile = $derived<Distortion>(
+		distortion ?? (deep ? 'warp' : depth === 1 ? 'caustic' : 'ripple')
+	);
+	const filterId = $derived(`sm-${profile}`);
 
 	const composedStyle = $derived(
 		`border-radius: ${radius}; padding: ${padding};` +
