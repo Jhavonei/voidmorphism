@@ -1,0 +1,16 @@
+node_modules
+/build
+/.svelte-kit
+/package
+src
+static
+tests
+*.md
+!README.md
+!LICENSE
+.env
+.env.*
+coverage
+.DS_Store
+*.log
+.github

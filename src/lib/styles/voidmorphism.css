@@ -1,0 +1,318 @@
+/* ============================================================================
+   VOIDMORPHISM — core material system
+   The next evolution of morphism design. A translucent, space-inspired liquid
+   material in deep purple + gold — refractive like iOS liquid glass, but with
+   gravitational distortion, borderless edges, and an inverted light theme.
+
+   Import once at the root of your app:
+     import 'svelte-voidmorphism/styles';
+
+   Theme:  default = dark.  Add  data-vm-theme="light"  to <html> for light.
+   ============================================================================ */
+
+:root,
+[data-vm-theme='dark'] {
+	color-scheme: dark;
+
+	/* --- Foundation: deep interstellar black with a violet bleed ----------- */
+	--vm-void: #07040f;
+	--vm-void-deep: #000000;
+	--vm-abyss: #0d0820;
+
+	/* --- The cosmic substance (one continuous material) -------------------- */
+	/* Purple primary. Change --vm-matter-h to spin the whole material's hue. */
+	--vm-matter-h: 270;
+	--vm-matter-s: 60%;
+	--vm-matter-l: 62%;
+
+	/* --- Light & energy: purple primary, warm gold secondary --------------- */
+	--vm-glint-h: 280; /* refractive rim-light hue */
+	--vm-glint-s: 95%;
+	--vm-accent: hsl(272 92% 67%); /* electric violet */
+	--vm-accent-2: hsl(45 96% 60%); /* solar gold */
+	--vm-accent-soft: hsla(272, 92%, 67%, 0.18);
+
+	/* --- Text: cinematic contrast (crisp highlights) ----------------------- */
+	--vm-ink: hsl(280 40% 96%);
+	--vm-ink-dim: hsl(280 20% 70%);
+	--vm-ink-faint: hsl(280 16% 48%);
+
+	/* --- Surface tints: TRANSLUCENT liquid glass (see-into, never gray) ----- */
+	/* Lower alpha + more blur than classic glassmorphism — it reads as dark
+	   refractive water rather than frosted plastic. */
+	--vm-surface-0: hsla(var(--vm-matter-h), 55%, 11%, 0.26);
+	--vm-surface-1: hsla(var(--vm-matter-h), 58%, 14%, 0.38);
+	--vm-surface-2: hsla(calc(var(--vm-matter-h) + 4), 60%, 17%, 0.5);
+	--vm-surface-3: hsla(calc(var(--vm-matter-h) + 8), 62%, 21%, 0.62);
+
+	/* --- Edge definition through light, not borders ------------------------ */
+	--vm-rim: hsla(var(--vm-glint-h), 100%, 92%, 0.32);
+	--vm-rim-soft: hsla(var(--vm-glint-h), 100%, 92%, 0.1);
+	--vm-horizon: hsla(var(--vm-matter-h), 70%, 2%, 0.92);
+
+	/* --- Cast shadow (ambient drop into the void) -------------------------- */
+	--vm-cast: hsla(272, 80%, 3%, 0.9);
+	--vm-cast-2: hsla(272, 80%, 2%, 0.7);
+
+	/* --- Bloom (celestial: violet core, gold halo) ------------------------- */
+	--vm-bloom: hsla(272, 92%, 67%, 0.42);
+	--vm-bloom-2: hsla(45, 96%, 60%, 0.26);
+
+	/* --- Refraction tuning (consumed by SVG filters) ----------------------- */
+	--vm-refract-scale: 18; /* displacement strength */
+	--vm-blur: 11px; /* liquid-glass translucency */
+	--vm-saturate: 1.55;
+
+	/* --- Geometry & motion ------------------------------------------------- */
+	--vm-radius-sm: 14px;
+	--vm-radius: 22px;
+	--vm-radius-lg: 30px;
+	--vm-radius-pill: 999px;
+
+	--vm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--vm-ease-warp: cubic-bezier(0.16, 1, 0.3, 1);
+	--vm-dur: 520ms;
+	--vm-dur-fast: 260ms;
+
+	/* --- Live values written by the gravityWell action --------------------- */
+	--vm-mx: 50%; /* pointer x within element */
+	--vm-my: 50%; /* pointer y within element */
+	--vm-pull: 0; /* 0 = at rest, 1 = full gravitational pull */
+	--vm-tilt-x: 0deg;
+	--vm-tilt-y: 0deg;
+}
+
+/* ---------------------------------------------------------------------------
+   INVERTED LIGHT THEME — "the bright nebula".
+   Translucent luminous glass over a pale cosmic dawn. Same purple/gold accents.
+   --------------------------------------------------------------------------- */
+[data-vm-theme='light'] {
+	color-scheme: light;
+
+	--vm-void: #ece6fb;
+	--vm-void-deep: #ffffff;
+	--vm-abyss: #ddd2f6;
+
+	--vm-matter-h: 270;
+	--vm-matter-s: 55%;
+	--vm-matter-l: 60%;
+
+	--vm-glint-h: 280;
+	--vm-glint-s: 90%;
+	--vm-accent: hsl(268 88% 55%);
+	--vm-accent-2: hsl(38 92% 47%);
+	--vm-accent-soft: hsla(268, 88%, 55%, 0.16);
+
+	--vm-ink: hsl(274 55% 13%);
+	--vm-ink-dim: hsl(274 26% 34%);
+	--vm-ink-faint: hsl(274 18% 52%);
+
+	/* Translucent luminous surfaces — bright glass, still refractive. */
+	--vm-surface-0: hsla(270, 80%, 100%, 0.32);
+	--vm-surface-1: hsla(270, 85%, 100%, 0.46);
+	--vm-surface-2: hsla(272, 90%, 100%, 0.58);
+	--vm-surface-3: hsla(274, 95%, 100%, 0.7);
+
+	--vm-rim: hsla(0, 0%, 100%, 0.85);
+	--vm-rim-soft: hsla(0, 0%, 100%, 0.45);
+	--vm-horizon: hsla(270, 50%, 45%, 0.16);
+
+	--vm-cast: hsla(270, 45%, 40%, 0.18);
+	--vm-cast-2: hsla(270, 45%, 35%, 0.12);
+
+	--vm-bloom: hsla(268, 88%, 60%, 0.3);
+	--vm-bloom-2: hsla(38, 92%, 55%, 0.24);
+
+	--vm-blur: 13px;
+	--vm-saturate: 1.4;
+}
+
+/* ---------------------------------------------------------------------------
+   Base: the void foundation. Apply to <body> or a root container.
+   --------------------------------------------------------------------------- */
+.vm-root {
+	background-color: var(--vm-void);
+	color: var(--vm-ink);
+	font-family:
+		'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------------------
+   The base material primitive (also exposed via <VoidSurface />).
+   Borderless: edges defined by light behavior + event-horizon darkening.
+   See-into: deep blacks stay black, brights stay crisp — no gray fog.
+   --------------------------------------------------------------------------- */
+.vm-surface {
+	position: relative;
+	isolation: isolate;
+	border-radius: var(--vm-radius);
+	color: var(--vm-ink);
+
+	/* The substance itself: a vertical tint of the cosmic material. */
+	background-image: linear-gradient(
+		180deg,
+		var(--vm-surface-2) 0%,
+		var(--vm-surface-1) 46%,
+		var(--vm-surface-0) 100%
+	);
+
+	/* See-into the void: distort + saturate the reality beneath. */
+	-webkit-backdrop-filter: blur(var(--vm-blur)) saturate(var(--vm-saturate));
+	backdrop-filter: blur(var(--vm-blur)) saturate(var(--vm-saturate));
+
+	/* Depth fields: ambient drop into the void + faint inner volume. */
+	box-shadow:
+		0 1px 0 0 var(--vm-rim) inset,
+		0 -24px 48px -28px var(--vm-horizon) inset,
+		0 30px 70px -32px var(--vm-cast),
+		0 2px 18px -8px var(--vm-cast-2);
+
+	transition:
+		transform var(--vm-dur) var(--vm-ease-warp),
+		box-shadow var(--vm-dur) var(--vm-ease);
+	transform-style: preserve-3d;
+}
+
+/* Refraction layer — applies the SVG lensing filter to the backdrop where
+   supported (Chromium). Degrades gracefully to the blur above. */
+@supports (backdrop-filter: url(#vm-refract)) or (-webkit-backdrop-filter: url(#vm-refract)) {
+	.vm-surface[data-vm-refract] {
+		-webkit-backdrop-filter: blur(var(--vm-blur)) saturate(var(--vm-saturate))
+			var(--vm-filter, url('#vm-refract'));
+		backdrop-filter: blur(var(--vm-blur)) saturate(var(--vm-saturate))
+			var(--vm-filter, url('#vm-refract'));
+	}
+}
+
+/* Event-horizon edge: content bends + darkens at the rim like a small
+   black hole. Implemented as a non-border ring of light + shadow. */
+.vm-surface::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 1px;
+	background: linear-gradient(
+		180deg,
+		var(--vm-rim) 0%,
+		var(--vm-rim-soft) 18%,
+		transparent 52%,
+		var(--vm-horizon) 100%
+	);
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* Cosmic reflection + cursor-attracted light (gravity well).
+   A soft nebula-like highlight that follows the pointer. Never shiny. */
+.vm-surface::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		140% 120% at var(--vm-mx) var(--vm-my),
+		hsla(var(--vm-glint-h), 90%, 92%, calc(0.1 + 0.14 * var(--vm-pull))) 0%,
+		transparent 46%
+	);
+	opacity: 0.9;
+	pointer-events: none;
+	transition: background var(--vm-dur-fast) linear;
+	z-index: 1;
+}
+
+/* Interactive surfaces feel massive — they tilt + lift toward the cursor. */
+.vm-surface[data-vm-interactive] {
+	cursor: pointer;
+	transform: perspective(900px) rotateX(var(--vm-tilt-x)) rotateY(var(--vm-tilt-y))
+		translateZ(calc(var(--vm-pull) * 6px));
+}
+
+.vm-surface[data-vm-interactive]:hover {
+	box-shadow:
+		0 1px 0 0 var(--vm-rim) inset,
+		0 -24px 48px -26px var(--vm-horizon) inset,
+		0 40px 90px -30px var(--vm-cast),
+		0 0 60px -10px var(--vm-bloom);
+}
+
+/* --- Depth scale: every element lives on its own dimensional plane ------- */
+.vm-depth-1 {
+	--vm-blur: 7px;
+	--vm-refract-scale: 10;
+}
+.vm-depth-2 {
+	--vm-blur: 11px;
+	--vm-refract-scale: 16;
+}
+.vm-depth-3 {
+	--vm-blur: 16px;
+	--vm-refract-scale: 24;
+}
+.vm-depth-4 {
+	--vm-blur: 22px;
+	--vm-refract-scale: 32;
+}
+
+/* --- Void bloom: bright objects spill soft celestial energy -------------- */
+.vm-bloom {
+	box-shadow:
+		0 0 0 0 transparent,
+		0 0 40px -6px var(--vm-bloom),
+		0 0 90px -10px var(--vm-bloom-2);
+}
+
+/* --- Text helpers -------------------------------------------------------- */
+.vm-title {
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	color: var(--vm-ink);
+	text-shadow: 0 0 28px hsla(var(--vm-glint-h), 90%, 80%, 0.25);
+}
+.vm-dim {
+	color: var(--vm-ink-dim);
+}
+
+/* --- Continuous, weightless drift for living material -------------------- */
+@keyframes vm-drift {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+.vm-drift {
+	animation: vm-drift 9s var(--vm-ease) infinite;
+}
+
+@keyframes vm-resonate {
+	0%,
+	100% {
+		box-shadow: 0 0 40px -10px var(--vm-bloom);
+	}
+	50% {
+		box-shadow: 0 0 70px -8px var(--vm-bloom);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.vm-surface,
+	.vm-drift,
+	.vm-surface[data-vm-interactive] {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
+	}
+}
