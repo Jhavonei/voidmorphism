@@ -18,8 +18,9 @@ export { default as SpaceNav } from './components/SpaceNav.svelte';
 export { default as GlitchText } from './components/GlitchText.svelte';
 export { default as MorphContainer } from './components/MorphContainer.svelte';
 
-// Signature: the gravity comet cursor
+// Signature: the gravity comet cursor + WebGL black hole
 export { default as CometCursor } from './components/CometCursor.svelte';
+export { default as BlackHole } from './components/BlackHole.svelte';
 
 // Backgrounds & fields
 export { default as StarDust } from './components/StarDust.svelte';
