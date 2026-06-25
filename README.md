@@ -1,316 +1,161 @@
-# svelte-voidmorphism
+# svelte-spacemorphism
 
-> **Voidmorphism** — a cinematic, space-inspired material system for Svelte 5 where interfaces appear carved from refractive void matter rather than transparent glass. Plus a full set of morphing/glitch transitions, built with runes.
+> **Spacemorphism** — a monochrome, gravity-driven, space sci-fi material system
+> and animated-component suite for Svelte 5. The successor to glassmorphism and
+> Apple's liquid glass: surfaces lens light, bend reality, and pull star dust
+> toward your cursor. Built with runes. **Zero runtime dependencies.**
 
-[![npm version](https://img.shields.io/npm/v/svelte-voidmorphism.svg)](https://www.npmjs.com/package/svelte-voidmorphism)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Svelte 5](https://img.shields.io/badge/Svelte-5-FF3E00.svg)](https://svelte.dev)
 
-> Voidmorphism is a next-generation interface material that combines the depth of space, the refraction of liquid glass, the seamlessness of borderless design, and gravitational distortion to create interfaces that feel less like windows and more like dimensional anomalies suspended in an infinite void.
+> The interface language of a spacefaring, multi-planet civilization. The whole
+> page is one region of spacetime — move through it and everything leans toward you.
 
 ## What makes it different
 
-| | Glassmorphism | Liquid Glass | **Voidmorphism** |
+| | Glassmorphism | Liquid Glass | **Spacemorphism** |
 | --- | --- | --- | --- |
-| Background | blurs it | distorts it | **warps reality beneath it** |
+| Background | blurs it | distorts it | **warps spacetime behind it** |
 | Foundation | light/gray | translucent | **infinite OLED black** |
-| Edges | borders | strokes | **borderless, light-defined** |
-| Transparency | see-through | see-through | **see-into (dark water)** |
-| Interaction | hover | hover | **gravity wells + resonance** |
+| Edges | borders | strokes | **event-horizon darkening** |
+| Color | anything | anything | **monochrome + one cold glow** |
+| Interaction | hover | hover | **one page-wide gravity field** |
+| Signature | — | refraction | **a real WebGL black hole** |
 
 ## Features
 
-- **Voidmorphism material system** — `VoidSurface`, `VoidPanel`, `VoidCard`, `VoidButton`, `VoidInput`, `VoidModal`, `VoidNav`, `VoidField`
-- **Gravitational lensing** — real SVG refraction warps the content behind every surface
-- **Borderless by design** — edges defined by light + event-horizon darkening, never strokes
-- **Gravity wells & resonance** — surfaces lean toward the cursor and glow in unison
-- **Themeable via CSS variables** — re-skin the whole substance from three tokens
-- **7 unique transitions** — voidDissolve, glitch, morph, phaseShift, pixelate, shatter, voidPulse
-- **Svelte 5 runes** — built natively with `$state`, `$props`, `$bindable`, and snippets
-- **Zero runtime dependencies** · **Tree-shakeable** · **Fully typed**
+- **Material system** — `SpaceSurface` → `SpaceCard`, `SpacePanel`, `SpaceButton`, `SpaceInput`, `SpaceModal`, `SpaceNav`.
+- **Shared Spacetime gravity field** — one page-wide pointer-mass field every surface and particle reacts to.
+- **Signature visuals** — a hand-rolled WebGL `BlackHole`, a gravity `CometCursor`.
+- **Backgrounds** — `StarDust`, `Constellation`, `DotField`, `StarGrid`, `GravityRipple`.
+- **Motion** — `SpaceBeam`, `BorderBeam`, `ShineBorder`, `OrbitingBodies`, `Marquee`, `ShimmerButton`.
+- **Interactive** — `SpaceTabs`, `HoverButton`, `SpaceSubscribe`, `SpaceFeatures`.
+- **Transitions** — `dissolve`, `dissipate`, `warp`, `gravityPulse`, `seamless`, plus glitch/morph/pixelate/shatter/phaseShift.
+- **QOL** — performance tiers, global config, reduced-motion everywhere, SSR-safe, viewport-gated.
+- **Monochrome by design** — grayscale + one cold `hsl(212 90% 72%)` star-glow you can dial to pure grayscale.
+- **Svelte 5 runes** · **zero runtime dependencies** · **tree-shakeable** · **fully typed**.
 
 ## Installation
 
 ```bash
-npm install svelte-voidmorphism
-# or
-pnpm add svelte-voidmorphism
-# or
-yarn add svelte-voidmorphism
+npm install svelte-spacemorphism
 ```
 
-## Quick Start — the material system
+Or copy components straight into your project, shadcn-style:
 
-Import the stylesheet once, mount the filters + void field at your app root, then build with void surfaces.
+```bash
+npx svelte-spacemorphism add black-hole star-dust space-card
+```
+
+## Quick start
+
+Import the stylesheet once, mount the field + filters + cursor at your app root,
+then build with space surfaces.
 
 ```svelte
 <!-- +layout.svelte -->
 <script lang="ts">
-  import 'svelte-voidmorphism/styles';
-  import { VoidFilters, VoidField } from 'svelte-voidmorphism';
+  import 'svelte-spacemorphism/styles';
+  import { SpaceFilters, SpaceField, CometCursor } from 'svelte-spacemorphism';
   let { children } = $props();
 </script>
 
-<VoidFilters />  <!-- SVG refraction filters, mount once -->
-<VoidField />    <!-- the infinite void background -->
+<SpaceFilters />  <!-- SVG refraction filters, mount once -->
+<SpaceField />    <!-- the infinite space background -->
+<CometCursor />   <!-- the gravity comet cursor -->
 
 {@render children?.()}
 ```
 
 ```svelte
-<!-- anywhere -->
 <script lang="ts">
-  import { VoidCard, VoidButton, VoidInput } from 'svelte-voidmorphism';
-  let email = $state('');
+  import { SpaceCard, SpaceButton, SpaceSubscribe } from 'svelte-spacemorphism';
 </script>
 
-<VoidCard interactive resonant bloom>
-  <h2>Carved from refractive void matter</h2>
-  <VoidInput label="Email" placeholder="you@galaxy.dev" bind:value={email} />
-  <VoidButton variant="primary">Enter the void</VoidButton>
-</VoidCard>
+<SpaceCard interactive resonant bloom>
+  <h2>Carved from spacetime</h2>
+  <SpaceSubscribe email onsubscribe={join} />
+  <SpaceButton variant="primary">Enter the void</SpaceButton>
+</SpaceCard>
 ```
 
-## Material System
+## The Spacetime field
 
-### Setup requirements
-
-1. `import 'svelte-voidmorphism/styles';` once (e.g. in your root layout).
-2. Mount `<VoidFilters />` once — it injects the SVG lensing filters referenced by every surface.
-3. Optionally mount `<VoidField />` for the infinite black + nebula + starfield foundation.
-
-### Components
-
-| Component | Purpose |
-| --- | --- |
-| `VoidSurface` | The base material primitive everything is built from. |
-| `VoidPanel` | Large, calm substrate region for sections/sidebars. |
-| `VoidCard` | Content card with a void-dissolve enter/exit transition. |
-| `VoidButton` | Gravity-reactive control; `primary` / `surface` / `ghost`. |
-| `VoidInput` | Borderless text field; focus raises a resonant bloom. |
-| `VoidModal` | Foreground anomaly using the deep refractive lens. |
-| `VoidNav` | Floating, resonant navigation bar. |
-| `VoidField` | Fixed infinite-void background (nebula + parallax stars). |
-| `VoidFilters` | SVG refraction/bloom filter defs (mount once). |
-
-### `VoidSurface` props
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `as` | `string` | `'div'` | Element tag to render. |
-| `depth` | `1 \| 2 \| 3 \| 4` | `2` | Dimensional plane (blur + refraction strength). |
-| `refract` | `boolean` | `true` | Apply SVG gravitational-lensing to the backdrop. |
-| `deep` | `boolean` | `false` | Use the stronger lens (modals/foreground). |
-| `interactive` | `boolean` | `false` | Gravity well: tilt + light attraction on cursor. |
-| `tilt` | `number` | `6` | Max tilt in degrees when interactive. |
-| `bloom` | `boolean` | `false` | Emit celestial void bloom. |
-| `resonant` | `boolean` | `false` | Glow in unison with nearby elements. |
-| `drift` | `boolean` | `false` | Weightless idle drift. |
-| `radius` / `padding` | `string` | — | Geometry passthrough. |
-
-### Actions
-
-Use the interaction effects on any element:
+Every gravity-reactive component registers with one shared field — a single
+pointer listener and a single animation loop for the whole page.
 
 ```svelte
-<script lang="ts">
-  import { gravityWell, resonance } from 'svelte-voidmorphism';
+<script>
+  import { gravityWell, resonance } from 'svelte-spacemorphism';
 </script>
 
-<div class="vm-surface" use:gravityWell={{ tilt: 6, field: 140 }} use:resonance={{ radius: 300 }}>
-  …
-</div>
+<div class="sm-surface" use:gravityWell={{ tilt: 6, field: 140 }} use:resonance>…</div>
 ```
 
-### Dark & light themes
+Star dust and the comet cursor read the same field, so the cursor is a moving
+mass that everything leans toward.
 
-Voidmorphism ships **dark by default** (deep violet + solar gold) and an **inverted light theme** ("the bright nebula"). Switch by setting `data-vm-theme` on `<html>`:
+## Theming & quality
 
-```html
-<html data-vm-theme="dark">  <!-- default -->
-<html data-vm-theme="light"> <!-- inverted, luminous glass -->
-```
-
-```ts
-// toggle at runtime
-document.documentElement.dataset.vmTheme =
-  document.documentElement.dataset.vmTheme === 'light' ? 'dark' : 'light';
-```
-
-All components, the `VoidField` starfield, shadows, and bloom adapt automatically.
-
-### Theming
-
-The entire substance derives from a few CSS variables — override them on `:root`, `[data-vm-theme='…']`, or any container:
+Re-skin the whole substance from a few CSS variables on `:root` (or any container):
 
 ```css
 :root {
-  --vm-matter-h: 270;            /* hue of the cosmic material (purple) */
-  --vm-matter-s: 60%;
-  --vm-accent: hsl(272 92% 67%); /* electric violet */
-  --vm-accent-2: hsl(45 96% 60%);/* solar gold */
-  --vm-blur: 11px;               /* liquid-glass translucency */
-  --vm-refract-scale: 18;
+  --sm-accent: hsl(212 90% 72%);  /* the one cold star-glow */
+  --sm-accent-chroma: 1;          /* set to 0 for pure grayscale */
+  --sm-blur: 11px;
+  --sm-refract-scale: 18;
 }
 ```
 
-> **Browser note:** the gravitational-lensing refraction uses an SVG filter referenced from `backdrop-filter`, which currently renders in Chromium-based browsers. Everywhere else it degrades gracefully to a tasteful backdrop blur + saturation — the borderless, event-horizon, bloom, and gravity-well effects all still apply.
+- **Themes:** `data-sm-theme="dark"` (default) or `"light"` (the "observatory").
+- **Performance:** `data-sm-perf="cinematic | balanced | eco"` scales blur, particle
+  counts, refraction, and frame caps — or call `autoConfig()` to detect it.
+
+```ts
+import { setSpaceConfig, autoConfig } from 'svelte-spacemorphism';
+autoConfig();                  // detect tier from the device
+setSpaceConfig({ chroma: 0 }); // go pure grayscale
+```
+
+> **Browser note:** gravitational-lensing refraction uses an SVG filter referenced
+> from `backdrop-filter`, which renders in Chromium today. Elsewhere it degrades
+> to a tasteful backdrop blur — the borderless edges, gravity, bloom, and all
+> animations still apply. The WebGL `BlackHole` falls back to a CSS render.
 
 ## Transitions
 
-### voidDissolve
-
-Dissolves the element into particles with blur and glow.
-
 ```svelte
-<div transition:voidDissolve={{ duration: 800, blur: 20, scale: 1.1 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `blur`, `scale`, `voidColor`
-
-### glitch
-
-Digital glitch effect with RGB channel splitting and displacement.
-
-```svelte
-<div transition:glitch={{ duration: 600, split: 8, displacement: 20, intensity: 1 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `split`, `displacement`, `intensity`, `steps`
-
-### morph
-
-Smooth morphing with scale, rotation, and skew.
-
-```svelte
-<div transition:morph={{ duration: 700, startScale: 0.3, rotation: -15, skew: 0.2 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `startScale`, `rotation`, `skew`, `blur`, `blurAmount`
-
-### phaseShift
-
-Dimensional ripple with hue rotation and wave distortion.
-
-```svelte
-<div transition:phaseShift={{ duration: 900, frequency: 3, amplitude: 15, hueShift: 120 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `frequency`, `amplitude`, `startScale`, `hueShift`
-
-### pixelate
-
-Retro digital materialization effect.
-
-```svelte
-<div transition:pixelate={{ duration: 600, maxPixelSize: 20 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `maxPixelSize`, `startScale`
-
-### shatter
-
-Shatters into fragments and reassembles.
-
-```svelte
-<div transition:shatter={{ duration: 700, shards: 4, displacement: 30, rotation: 45 }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `shards`, `displacement`, `rotation`
-
-### voidPulse
-
-Pulsing energy wave with expanding glow.
-
-```svelte
-<div transition:voidPulse={{ duration: 800, pulses: 3, pulseScale: 1.5, glowColor: '100, 200, 255' }}>
-  Content
-</div>
-```
-
-**Options:** `duration`, `easing`, `pulses`, `pulseScale`, `startScale`, `glowColor`
-
-## Components
-
-### VoidCard
-
-A card component that uses voidDissolve for enter/exit.
-
-```svelte
-<script lang="ts">
-  import { VoidCard } from 'svelte-voidmorphism';
+<script>
+  import { dissipate, warp } from 'svelte-spacemorphism';
+  let show = $state(true);
 </script>
 
-<VoidCard visible={true} duration={800} voidColor="100, 100, 255">
-  <h2>Title</h2>
-  <p>Card content</p>
-</VoidCard>
+{#if show}
+  <div transition:dissipate={{ duration: 700 }}>Matter</div>
+{/if}
 ```
 
-### GlitchText
+`dissolve` · `dissipate` (scatter into star dust) · `warp` (gravitational lens) ·
+`gravityPulse` · `seamless` (FLIP shared-element morph) · plus glitch, morph,
+pixelate, shatter, phaseShift, and a full set of easings.
 
-Text with glitch transition and optional continuous CSS animation.
+## CLI
 
-```svelte
-<script lang="ts">
-  import { GlitchText } from 'svelte-voidmorphism';
-</script>
-
-<GlitchText text="SYSTEM ERROR" continuous={true} color="#00ff88" />
+```bash
+npx svelte-spacemorphism list                  # browse components
+npx svelte-spacemorphism add black-hole         # copy a component + its deps
+npx svelte-spacemorphism init                   # styles + field + filters + cursor
 ```
 
-### MorphContainer
+## Documentation & lore
 
-A container that morphs in with scale, rotation, and skew.
-
-```svelte
-<script lang="ts">
-  import { MorphContainer } from 'svelte-voidmorphism';
-</script>
-
-<MorphContainer visible={true} startScale={0.3} rotation={-15}>
-  Content
-</MorphContainer>
-```
-
-## Easing Functions
-
-14 built-in easing functions:
-
-`linear`, `easeInOutCubic`, `easeOutExpo`, `easeInExpo`, `easeInOutExpo`, `easeOutBack`, `easeInBack`, `easeInOutBack`, `easeOutElastic`, `easeInElastic`, `easeInOutElastic`, `easeOutBounce`, `easeInBounce`, `easeInOutBounce`
-
-Plus utilities to create custom eases:
-
-```ts
-import { cubicBezier, steps, sequenceEasing } from 'svelte-voidmorphism/utils';
-
-const customEase = cubicBezier(0.25, 0.1, 0.25, 1);
-const stepped = steps(5);
-const combined = sequenceEasing(
-  { easing: easeOutExpo, weight: 1 },
-  { easing: easeOutBounce, weight: 1 }
-);
-```
-
-## Browser Support
-
-All transitions use standard CSS `transform`, `filter`, `clip-path`, and `box-shadow` properties. Works in all modern browsers (Chrome, Firefox, Safari, Edge).
+See [SPACE_PHASES.md](./SPACE_PHASES.md) for the design language, palette, the full
+phase roadmap, and the lore. Run the showcase locally with `npm run dev`.
 
 ## Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Contributions welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
