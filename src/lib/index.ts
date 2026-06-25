@@ -43,6 +43,19 @@ export { default as HoverButton } from './components/HoverButton.svelte';
 export { default as SpaceSubscribe } from './components/SpaceSubscribe.svelte';
 export { default as SpaceFeatures } from './components/SpaceFeatures.svelte';
 
+// Optional sound + haptics
+export { default as SoundToggle } from './components/SoundToggle.svelte';
+export {
+	playSound,
+	vibrate,
+	setSoundEnabled,
+	isSoundEnabled,
+	onSoundChange,
+	toneParams,
+	type SoundName,
+	type ToneParams
+} from './sound/sound.js';
+
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
