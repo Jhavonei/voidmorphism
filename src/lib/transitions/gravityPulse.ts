@@ -6,7 +6,7 @@
 import type { TransitionConfig } from 'svelte/transition';
 import { easeOutExpo } from './easing.js';
 
-export interface VoidPulseOptions {
+export interface GravityPulseOptions {
 	/** Duration in milliseconds. Default: 800 */
 	duration?: number;
 	/** Easing function. Default: easeOutExpo */
@@ -21,9 +21,9 @@ export interface VoidPulseOptions {
 	glowColor?: string;
 }
 
-export function voidPulse(
+export function gravityPulse(
 	node: Element,
-	options: VoidPulseOptions = {}
+	options: GravityPulseOptions = {}
 ): TransitionConfig {
 	const {
 		duration = 800,

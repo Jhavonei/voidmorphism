@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SpaceSurface from './SpaceSurface.svelte';
-	import { voidDissolve } from '../transitions/voidDissolve.js';
+	import { dissolve } from '../transitions/dissolve.js';
 	import { fade } from 'svelte/transition';
 
 	/**
@@ -47,7 +47,7 @@
 			onclick={close}
 			tabindex="-1"
 		></button>
-		<div class="sm-modal-pos" transition:voidDissolve={{ duration: 520, voidColor: '150, 195, 255' }}>
+		<div class="sm-modal-pos" transition:dissolve={{ duration: 520, color: '150, 195, 255' }}>
 			<SpaceSurface
 				depth={3}
 				deep

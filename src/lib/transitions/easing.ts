@@ -89,3 +89,17 @@ export const easeInOutBounce: EasingFunction = (t) =>
 	t < 0.5
 		? (1 - easeOutBounce(1 - 2 * t)) / 2
 		: (1 + easeOutBounce(2 * t - 1)) / 2;
+
+/* --- Cinematic eases (added for spacemorphism motion) -------------------- */
+
+/** Gentle, symmetric sine ease — calm drifting feel. */
+export const easeInOutSine: EasingFunction = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+
+/** Sharp circular ease-out — fast launch, soft landing. */
+export const easeOutCirc: EasingFunction = (t) => Math.sqrt(1 - Math.pow(t - 1, 2));
+
+/** Anticipate — pulls back slightly before launching forward (overshoot at 0). */
+export const anticipate: EasingFunction = (t) => {
+	const s = 1.70158;
+	return t * t * ((s + 1) * t - s);
+};

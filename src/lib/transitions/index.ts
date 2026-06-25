@@ -1,11 +1,14 @@
 // Transitions barrel export
-export { voidDissolve, type VoidDissolveOptions } from './voidDissolve.js';
+export { dissolve, type DissolveOptions } from './dissolve.js';
+export { dissipate, type DissipateOptions } from './dissipate.js';
+export { warp, type WarpOptions } from './warp.js';
+export { gravityPulse, type GravityPulseOptions } from './gravityPulse.js';
+export { seamless, createSeamless, type SeamlessOptions } from './seamless.js';
 export { glitch, type GlitchOptions } from './glitch.js';
 export { morph, type MorphOptions } from './morph.js';
 export { phaseShift, type PhaseShiftOptions } from './phaseShift.js';
 export { pixelate, type PixelateOptions } from './pixelate.js';
 export { shatter, type ShatterOptions } from './shatter.js';
-export { voidPulse, type VoidPulseOptions } from './voidPulse.js';
 
 // Easing functions
 export {
@@ -23,6 +26,9 @@ export {
 	easeOutBounce,
 	easeInBounce,
 	easeInOutBounce,
+	easeInOutSine,
+	easeOutCirc,
+	anticipate,
 	type EasingFunction
 } from './easing.js';
 

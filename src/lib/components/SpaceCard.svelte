@@ -1,6 +1,6 @@
 <script lang="ts">
 	import SpaceSurface from './SpaceSurface.svelte';
-	import { voidDissolve } from '../transitions/voidDissolve.js';
+	import { dissolve } from '../transitions/dissolve.js';
 	import { type EasingFunction, easeOutExpo } from '../transitions/easing.js';
 
 	/**
@@ -53,7 +53,7 @@
 </script>
 
 {#if visible}
-	<div transition:voidDissolve={{ duration, easing, voidColor: glow }} style="width: {width};">
+	<div transition:dissolve={{ duration, easing, color: glow }} style="width: {width};">
 		<SpaceSurface {depth} {interactive} {resonant} {bloom} {padding} {radius} {...restProps}>
 			{@render children?.()}
 		</SpaceSurface>

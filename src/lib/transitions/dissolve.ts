@@ -1,12 +1,13 @@
 /**
- * Void Dissolve — dissolves the element into particles as it enters/exits.
- * Creates a "dissolving into the void" effect with blur and opacity.
+ * dissolve — dissolves the element into space as it enters/exits, with blur,
+ * a gentle swell, and a soft halo. The refined successor to the original
+ * void-dissolve.
  */
 
 import type { TransitionConfig } from 'svelte/transition';
 import { linear } from './easing.js';
 
-export interface VoidDissolveOptions {
+export interface DissolveOptions {
 	/** Duration in milliseconds. Default: 800 */
 	duration?: number;
 	/** Easing function. Default: linear */
@@ -15,20 +16,20 @@ export interface VoidDissolveOptions {
 	blur?: number;
 	/** Scale at peak dissolution. Default: 1.1 */
 	scale?: number;
-	/** Background color for the void effect (RGB). Default: '0, 0, 0' */
-	voidColor?: string;
+	/** Halo color (RGB components). Default: cold star-white '150, 195, 255' */
+	color?: string;
 }
 
-export function voidDissolve(
+export function dissolve(
 	node: Element,
-	options: VoidDissolveOptions = {}
+	options: DissolveOptions = {}
 ): TransitionConfig {
 	const {
 		duration = 800,
 		easing = linear,
 		blur = 20,
 		scale = 1.1,
-		voidColor = '0, 0, 0'
+		color = '150, 195, 255'
 	} = options;
 
 	const originalFilter = (node as HTMLElement).style.filter || '';
@@ -44,7 +45,7 @@ export function voidDissolve(
 				opacity: ${opacity};
 				filter: ${originalFilter} blur(${currentBlur}px);
 				transform: scale(${currentScale});
-				box-shadow: 0 0 ${(1 - t) * 60}px rgba(${voidColor}, ${(1 - t) * 0.8});
+				box-shadow: 0 0 ${(1 - t) * 60}px rgba(${color}, ${(1 - t) * 0.8});
 			`;
 		}
 	};
