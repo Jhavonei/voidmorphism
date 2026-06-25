@@ -21,6 +21,13 @@ export { default as MorphContainer } from './components/MorphContainer.svelte';
 // Signature: the gravity comet cursor
 export { default as CometCursor } from './components/CometCursor.svelte';
 
+// Backgrounds & fields
+export { default as StarDust } from './components/StarDust.svelte';
+export { default as Constellation } from './components/Constellation.svelte';
+export { default as DotField } from './components/DotField.svelte';
+export { default as StarGrid } from './components/StarGrid.svelte';
+export { default as GravityRipple } from './components/GravityRipple.svelte';
+
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
