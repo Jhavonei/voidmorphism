@@ -28,6 +28,14 @@ export { default as DotField } from './components/DotField.svelte';
 export { default as StarGrid } from './components/StarGrid.svelte';
 export { default as GravityRipple } from './components/GravityRipple.svelte';
 
+// Motion accents
+export { default as SpaceBeam } from './components/SpaceBeam.svelte';
+export { default as BorderBeam } from './components/BorderBeam.svelte';
+export { default as ShineBorder } from './components/ShineBorder.svelte';
+export { default as OrbitingBodies } from './components/OrbitingBodies.svelte';
+export { default as Marquee } from './components/Marquee.svelte';
+export { default as ShimmerButton } from './components/ShimmerButton.svelte';
+
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
