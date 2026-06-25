@@ -36,6 +36,12 @@ export { default as OrbitingBodies } from './components/OrbitingBodies.svelte';
 export { default as Marquee } from './components/Marquee.svelte';
 export { default as ShimmerButton } from './components/ShimmerButton.svelte';
 
+// Interactive components
+export { default as SpaceTabs } from './components/SpaceTabs.svelte';
+export { default as HoverButton } from './components/HoverButton.svelte';
+export { default as SpaceSubscribe } from './components/SpaceSubscribe.svelte';
+export { default as SpaceFeatures } from './components/SpaceFeatures.svelte';
+
 // Interaction actions
 export { gravityWell, type GravityWellOptions } from './actions/gravityWell.js';
 export { resonance, type ResonanceOptions } from './actions/resonance.js';
